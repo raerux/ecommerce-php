@@ -247,7 +247,7 @@ async function buscarCEP(cep) {
     
     try {
         // Usa o proxy PHP para evitar problemas de CORS
-        const response = await fetch(`api/cep.php?cep=${cep}`);
+        const response = await fetch(`api/cep.php?cep=${encodeURIComponent(cep)}`);
         const data = await response.json();
         
         if (data.erro) {

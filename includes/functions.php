@@ -91,11 +91,14 @@ function formatMoney($value) {
  * Calcula o frete baseado no CEP
  * Regra simples: R$ 10 + R$ 2 por cada dígito par no CEP
  * 
- * @param string $cep CEP de destino (apenas números)
+ * Nota: A função normaliza o CEP removendo caracteres não numéricos
+ * antes de realizar o cálculo.
+ * 
+ * @param string $cep CEP de destino (aceita formato XXXXX-XXX ou apenas números)
  * @return float Valor do frete
  */
 function calcularFrete($cep) {
-    // Remove caracteres não numéricos
+    // Normaliza o CEP removendo caracteres não numéricos
     $cep = preg_replace('/[^0-9]/', '', $cep);
     
     $freteBase = 10.00;

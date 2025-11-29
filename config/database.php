@@ -32,7 +32,10 @@ function getConnection() {
         $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         return $pdo;
     } catch (PDOException $e) {
-        // Em produção, você deve logar o erro e mostrar uma mensagem genérica
-        die("Erro ao conectar ao banco de dados: " . $e->getMessage());
+        // Loga o erro para depuração (em produção, usar sistema de log adequado)
+        error_log("Erro de conexão com banco de dados: " . $e->getMessage());
+        
+        // Mostra mensagem genérica ao usuário
+        die("Não foi possível conectar ao banco de dados. Por favor, tente novamente mais tarde.");
     }
 }

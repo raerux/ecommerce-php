@@ -68,7 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $success = 'Produto atualizado com sucesso!';
                 }
             } catch (PDOException $e) {
-                $errors[] = 'Erro ao salvar produto: ' . $e->getMessage();
+                error_log("Erro ao salvar produto: " . $e->getMessage());
+                $errors[] = 'Erro ao salvar produto. Tente novamente.';
             }
         }
     } elseif ($action === 'deletar') {

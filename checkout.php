@@ -95,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Se não houver erros, processa a compra
         if (empty($errors)) {
             try {
+                /** @var PDO $pdo */
                 $pdo->beginTransaction();
                 
                 $valorProdutos = getCartTotal();
@@ -165,8 +166,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 setFlashMessage("Compra realizada com sucesso! Pedido #$compraId", 'success');
                 redirect('pedidos.php');
                 
-            } catch (Exception $e) {
+            } catch (PDOException $e) {
                 $pdo->rollBack();
+                error_log("Erro ao processar compra: " . $e->getMessage());
                 $errors[] = 'Erro ao processar a compra. Tente novamente.';
             }
         }
